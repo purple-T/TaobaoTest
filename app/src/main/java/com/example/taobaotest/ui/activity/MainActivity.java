@@ -11,18 +11,22 @@ import android.view.MenuItem;
 
 import com.example.taobaotest.R;
 import com.example.taobaotest.ui.fragment.HomeFragment;
+import com.example.taobaotest.utils.LogUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private BottomNavigationView mNavigationView;
+    @BindView(R.id.main_navigaion_bar) BottomNavigationView mNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ButterKnife.bind(this);
         initView();
         initListener();
     }
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                Log.d(TAG,"点击了"+item.getTitle() + "id---"+item.getItemId());
+                LogUtils.d(MainActivity.class,"点击了"+item.getTitle() + "id---"+item.getItemId());
 
                 switch (item.getItemId()){
                     case R.id.menu_home:{
@@ -63,10 +67,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
-
-        mNavigationView = findViewById(R.id.main_navigaion_bar);
-
 
 
         HomeFragment fragment = new HomeFragment();
