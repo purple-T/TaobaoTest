@@ -8,14 +8,18 @@
 
 
     <FrameLayout
+        android:id="@+id/main_page_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/main_navigaion_bar"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         app:menu="@menu/my_navigation_items"
         android:background="@color/white"
+        app:itemTextColor="@drawable/navigation_bar_color"
+        app:itemIconTint="@drawable/navigation_bar_color"
         android:layout_height="wrap_content"/>
 
 
