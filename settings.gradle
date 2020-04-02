@@ -1,0 +1,2 @@
+rootProject.name='TaobaoTest'
+include ':app'
