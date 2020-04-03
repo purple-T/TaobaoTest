@@ -4,33 +4,33 @@ import android.util.Log;
 
 public class LogUtils {
 
-    private static int currentLev = 4;
-    private static int deubglev = 4;
-    private static int infoLev = 3;
-    private static int warningLev = 2;
-    private static int errorLev = 1;
+    private static final int CURRENT_LEV = 4;
+    private static final int DEUBG_LEV = 4;
+    private static final int INFO_LEV = 3;
+    private static final int WARNING_LEV = 2;
+    private static final int ERROR_LEV = 1;
 
-    public static void d(Class clazz,String log){
-        if (currentLev >= deubglev){
-            Log.d(clazz.getSimpleName(),log);
+    public static void d(Object object,String log){
+        if (CURRENT_LEV >= DEUBG_LEV){
+            Log.d(object.getClass().getSimpleName(),log);
         }
     }
 
-    public static void i(Class clazz,String log){
-        if (currentLev >= infoLev){
-            Log.i(clazz.getSimpleName(),log);
+    public static void i(Object object,String log){
+        if (CURRENT_LEV >= INFO_LEV){
+            Log.i(object.getClass().getSimpleName(),log);
         }
     }
 
-    public static void w(Class clazz,String log){
-        if (currentLev >= warningLev){
-            Log.w(clazz.getSimpleName(),log);
+    public static void w(Object object,String log){
+        if (CURRENT_LEV >= WARNING_LEV){
+            Log.w(object.getClass().getSimpleName(),log);
         }
     }
 
-    public static void e(Class clazz,String log){
-        if (currentLev >= errorLev){
-            Log.e(clazz.getSimpleName(),log);
+    public static void e(Object object,String log){
+        if (CURRENT_LEV >= ERROR_LEV){
+            Log.e(object.getClass().getSimpleName(),log);
         }
     }
 
