@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.taobaotest.R;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public abstract   class BaseFragment extends Fragment {
@@ -30,10 +31,25 @@ public abstract   class BaseFragment extends Fragment {
     private Unbinder mBind;
     private FrameLayout mBaseContainer;
 
+    @OnClick(R.id.network_error_tips)
+    void retry(){
+        onRetryClick();
+    }
+
+    /**
+     * 如果子fragment需要知道网络错误以后的点击,覆盖此方法即可
+     */
+    protected void onRetryClick() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.base_fragment_layout, container, false);
+
+        View rootView = loadRootView(inflater,container);
+
+//        View rootView = inflater.inflate(R.layout.base_fragment_layout, container, false);
         mBaseContainer = rootView.findViewById(R.id.base_container);
 
         loadStatesView(inflater,container);
@@ -44,6 +60,10 @@ public abstract   class BaseFragment extends Fragment {
         initPresenter();
         loadData();
         return rootView;
+    }
+
+    protected View loadRootView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.base_fragment_layout, container, false);
     }
 
     /**

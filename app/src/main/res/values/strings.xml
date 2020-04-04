@@ -5,4 +5,5 @@
     <string name="text_red_packet">特惠</string>
     <string name="text_search">搜索</string>
     <string name="search_tips_text">搜你想搜的...宝贝</string>
+    <string name="text_load_error_tips">加载错误请重试...</string>
 </resources>
