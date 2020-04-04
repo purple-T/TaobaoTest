@@ -49,10 +49,18 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/home_indicator"
         android:layout_width="match_parent"
+        android:overScrollMode="ifContentScrolls"
+        app:tabMode="auto"
+        android:background="@color/colorPrimaryDark"
+        app:tabSelectedTextColor="@color/colorTabSelected"
+        app:tabTextColor="@color/colorTabNormal"
+        app:tabIndicatorColor="@color/colorTabSelected"
+        app:tabRippleColor="@color/colorTabNormal"
         android:layout_height="30dp"/>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/home_pager"
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

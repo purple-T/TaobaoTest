@@ -58,17 +58,36 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
 
     @Override
     protected void loadData() {
+
         //加载数据
         mHomePresenter.getCategories();
     }
 
     @Override
     public void onCategoriesLoaded(Categories categories) {
+        setUpState(State.SUCCESS);
         // 加载数据成功
         if (mHomePagerAdapter!=null) {
 
             mHomePagerAdapter.setCategories(categories);
         }
+    }
+
+    @Override
+    public void onNetworkError() {
+        setUpState(State.ERROR);
+    }
+
+    @Override
+    public void onLoading() {
+        setUpState(State.LOADING);
+
+    }
+
+    @Override
+    public void onEmpty() {
+        setUpState(State.EMPTY);
+
     }
 
     @Override
