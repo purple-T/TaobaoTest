@@ -1,6 +1,12 @@
 package com.example.taobaotest.ui.fragment;
 
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taobaotest.R;
 import com.example.taobaotest.base.BaseFragment;
@@ -8,17 +14,25 @@ import com.example.taobaotest.model.domain.Categories;
 import com.example.taobaotest.model.domain.HomePagerContent;
 import com.example.taobaotest.presenter.ICategoryPagerPresent;
 import com.example.taobaotest.presenter.impl.CategoryPagerPresentImpl;
+import com.example.taobaotest.ui.adapter.HomePagerContentAdapter;
 import com.example.taobaotest.utils.Constants;
 import com.example.taobaotest.utils.LogUtils;
 import com.example.taobaotest.view.ICategoryPagerCallback;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 public class HomePagerFragment extends BaseFragment implements ICategoryPagerCallback {
 
     private ICategoryPagerPresent mCategoryPagerPresent;
     private int mMaterialId;
     private String mTitle;
+
+    @BindView(R.id.home_pager_content_rv)
+    public RecyclerView mRecyclerView;
+    private HomePagerContentAdapter mAdapter;
+
 
     public static HomePagerFragment newInstance(Categories.DataBean categories){
 
@@ -45,6 +59,22 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     }
 
     @Override
+    protected void initView(View rootView) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mAdapter = new HomePagerContentAdapter();
+        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+//                super.getItemOffsets(outRect, view, parent, state);
+                outRect.bottom =8;
+                outRect.top =8;
+            }
+        });
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
     protected void loadData() {
         Bundle arguments = getArguments();
 
@@ -54,7 +84,6 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
         LogUtils.d(this,"title----"+ mTitle);
         LogUtils.d(this,"masterialId----"+ mMaterialId);
 
-        //TODO:加载数据
         if (mCategoryPagerPresent!=null) {
             mCategoryPagerPresent.getContentByCategoryId(mMaterialId);
         }
@@ -75,8 +104,9 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     public void onContentLoaded(List<HomePagerContent.DataBean> contents) {
 
 
-
         setUpState(State.SUCCESS);
+
+        mAdapter.setDatas(contents);
 
 
     }

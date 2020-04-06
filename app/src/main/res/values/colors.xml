@@ -6,4 +6,5 @@
     <color name="colorGrey">#7b7b7b</color>
     <color name="colorTabSelected">#ffffff</color>
     <color name="colorTabNormal">#aaFfF5F5</color>
+    <color name="colorHomePagerBg">#eeeeee</color>
 </resources>
