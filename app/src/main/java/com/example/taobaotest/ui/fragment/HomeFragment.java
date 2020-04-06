@@ -1,14 +1,9 @@
 package com.example.taobaotest.ui.fragment;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.taobaotest.R;
@@ -53,7 +48,9 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     protected void initPresenter() {
         //创建Presenter
         mHomePresenter = new HomePresenterImpl();
-        mHomePresenter.registerCallback(this);
+        mHomePresenter.registerViewCallback(this);
+
+
     }
 
     @Override
@@ -99,7 +96,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     protected void release() {
         //取消回调注册
         if (mHomePresenter!=null) {
-            mHomePresenter.unregisterCallback(this);
+            mHomePresenter.unregisterViewCallback(this);
         }
     }
 
