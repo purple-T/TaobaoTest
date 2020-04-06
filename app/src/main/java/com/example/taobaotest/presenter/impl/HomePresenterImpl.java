@@ -11,7 +11,6 @@ import java.net.HttpURLConnection;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.HttpException;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -51,7 +50,7 @@ public class HomePresenterImpl implements IHomePresenter {
                     LogUtils.i(this,"请求失败");
                     if (mCallback != null) {
 
-                        mCallback.onNetworkError();
+                        mCallback.onError();
                     }
                 }
             }
@@ -63,7 +62,7 @@ public class HomePresenterImpl implements IHomePresenter {
                 LogUtils.i(this,"请求错误"+t.toString());
                 if (mCallback != null) {
 
-                    mCallback.onNetworkError();
+                    mCallback.onError();
                 }
             }
         });

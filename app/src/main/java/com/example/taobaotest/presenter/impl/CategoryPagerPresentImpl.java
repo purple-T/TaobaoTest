@@ -48,7 +48,10 @@ public class CategoryPagerPresentImpl implements ICategoryPagerPresent {
 
         //加载指示器
         for (ICategoryPagerCallback callback : mCallbacks) {
-            callback.onLoading(categoryId);
+            if (callback.getCategoryId()==categoryId) {
+
+                callback.onLoading();
+            }
         }
 
         Retrofit retrofit = RetrofitManager.getInstance().getRetrofit();
@@ -112,19 +115,32 @@ public class CategoryPagerPresentImpl implements ICategoryPagerPresent {
 
     private void handleNetworkError(int categoryId) {
         for (ICategoryPagerCallback callback : mCallbacks) {
-            callback.onError(categoryId);
+
+            if (callback.getCategoryId()==categoryId) {
+
+                callback.onError();
+            }
+
         }
     }
 
     private void handleHomePageContentResult(HomePagerContent pagerContent, int categoryId) {
         //更新ui
         for (ICategoryPagerCallback callback : mCallbacks) {
-            if (pagerContent==null||pagerContent.getData().size()==0) {
-                callback.onEmpty(categoryId);
-            }else{
 
-                callback.onContentLoaded(pagerContent.getData(),categoryId);
+            if (callback.getCategoryId()==categoryId) {
+
+                if (pagerContent==null||pagerContent.getData().size()==0) {
+
+                    callback.onEmpty();
+
+                }else{
+
+                    callback.onContentLoaded(pagerContent.getData());
+
+                }
             }
+
         }
 
 
@@ -134,6 +150,7 @@ public class CategoryPagerPresentImpl implements ICategoryPagerPresent {
     public void registerViewCallback(ICategoryPagerCallback callback) {
 
         if (!mCallbacks.contains(callback)) {
+
             mCallbacks.add(callback);
         }
 
