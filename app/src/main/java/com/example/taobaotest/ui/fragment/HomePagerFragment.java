@@ -3,10 +3,12 @@ package com.example.taobaotest.ui.fragment;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.taobaotest.R;
 import com.example.taobaotest.base.BaseFragment;
@@ -15,6 +17,7 @@ import com.example.taobaotest.model.domain.HomePagerContent;
 import com.example.taobaotest.presenter.ICategoryPagerPresent;
 import com.example.taobaotest.presenter.impl.CategoryPagerPresentImpl;
 import com.example.taobaotest.ui.adapter.HomePagerContentAdapter;
+import com.example.taobaotest.ui.adapter.LooperPagerAdapter;
 import com.example.taobaotest.utils.Constants;
 import com.example.taobaotest.utils.LogUtils;
 import com.example.taobaotest.view.ICategoryPagerCallback;
@@ -32,6 +35,13 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     @BindView(R.id.home_pager_content_rv)
     public RecyclerView mRecyclerView;
     private HomePagerContentAdapter mAdapter;
+
+    @BindView(R.id.looper_pager)
+    public ViewPager looper_pager;
+    private LooperPagerAdapter mPagerAdapter;
+
+    @BindView(R.id.home_pager_title)
+    public TextView homepagerTitleEv;
 
 
     public static HomePagerFragment newInstance(Categories.DataBean categories){
@@ -72,6 +82,10 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
             }
         });
         mRecyclerView.setAdapter(mAdapter);
+
+        mPagerAdapter = new LooperPagerAdapter();
+        looper_pager.setAdapter(mPagerAdapter);
+
     }
 
     @Override
@@ -83,6 +97,11 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
 
         LogUtils.d(this,"title----"+ mTitle);
         LogUtils.d(this,"masterialId----"+ mMaterialId);
+
+        if (homepagerTitleEv !=null) {
+
+            homepagerTitleEv.setText(mTitle);
+        }
 
         if (mCategoryPagerPresent!=null) {
             mCategoryPagerPresent.getContentByCategoryId(mMaterialId);
@@ -154,6 +173,7 @@ public class HomePagerFragment extends BaseFragment implements ICategoryPagerCal
     @Override
     public void onLooperListLoaded(List<HomePagerContent.DataBean> contents) {
 
+        mPagerAdapter.setDatas(contents);
     }
 
 

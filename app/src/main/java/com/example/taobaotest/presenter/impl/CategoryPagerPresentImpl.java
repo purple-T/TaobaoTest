@@ -136,7 +136,10 @@ public class CategoryPagerPresentImpl implements ICategoryPagerPresent {
 
                 }else{
 
-                    callback.onContentLoaded(pagerContent.getData());
+                    List<HomePagerContent.DataBean> pagerContentData = pagerContent.getData();
+                    List<HomePagerContent.DataBean> looperData = pagerContentData.subList(pagerContentData.size() - 5, pagerContentData.size());
+                    callback.onLooperListLoaded(looperData);
+                    callback.onContentLoaded(pagerContentData);
 
                 }
             }
